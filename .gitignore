@@ -1,0 +1,10 @@
+*.egg-info
+.DS_Store
+.idea/
+.mypy_cache/
+.pytest_cache/
+.venv/
+__pycache__/
+out/
+stubgen/
+build/
