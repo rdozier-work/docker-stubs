@@ -23,7 +23,12 @@ class SSHConnection(urllib3.connection.HTTPConnection):
     ssh_transport: Incomplete
     timeout: Incomplete
     ssh_host: Incomplete
-    def __init__(self, ssh_transport: Incomplete | None = ..., timeout: int = ..., host: Incomplete | None = ...) -> None: ...
+    def __init__(
+        self,
+        ssh_transport: Incomplete | None = ...,
+        timeout: int = ...,
+        host: Incomplete | None = ...,
+    ) -> None: ...
     sock: Incomplete
     def connect(self) -> None: ...
 
@@ -32,7 +37,13 @@ class SSHConnectionPool(urllib3.connectionpool.HTTPConnectionPool):
     ssh_transport: Incomplete
     timeout: Incomplete
     ssh_host: Incomplete
-    def __init__(self, ssh_client: Incomplete | None = ..., timeout: int = ..., maxsize: int = ..., host: Incomplete | None = ...) -> None: ...
+    def __init__(
+        self,
+        ssh_client: Incomplete | None = ...,
+        timeout: int = ...,
+        maxsize: int = ...,
+        host: Incomplete | None = ...,
+    ) -> None: ...
 
 class SSHHTTPAdapter(BaseHTTPAdapter):
     __attrs__: Incomplete
@@ -41,6 +52,13 @@ class SSHHTTPAdapter(BaseHTTPAdapter):
     timeout: Incomplete
     max_pool_size: Incomplete
     pools: Incomplete
-    def __init__(self, base_url, timeout: int = ..., pool_connections=..., max_pool_size=..., shell_out: bool = ...) -> None: ...
+    def __init__(
+        self,
+        base_url,
+        timeout: int = ...,
+        pool_connections=...,
+        max_pool_size=...,
+        shell_out: bool = ...,
+    ) -> None: ...
     def get_connection(self, url, proxies: Incomplete | None = ...): ...
     def close(self) -> None: ...

@@ -1,6 +1,9 @@
 from _typeshed import Incomplete
 from docker import utils as utils
-from docker.constants import DEFAULT_UNIX_SOCKET as DEFAULT_UNIX_SOCKET, IS_WINDOWS_PLATFORM as IS_WINDOWS_PLATFORM
+from docker.constants import (
+    DEFAULT_UNIX_SOCKET as DEFAULT_UNIX_SOCKET,
+    IS_WINDOWS_PLATFORM as IS_WINDOWS_PLATFORM,
+)
 from docker.utils.config import find_config_file as find_config_file
 
 METAFILE: str

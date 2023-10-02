@@ -1,7 +1,15 @@
 from .resource import Collection as Collection, Model as Model
 from _typeshed import Incomplete
-from docker.errors import InvalidArgument as InvalidArgument, create_unexpected_kwargs_error as create_unexpected_kwargs_error
-from docker.types import ContainerSpec as ContainerSpec, Placement as Placement, ServiceMode as ServiceMode, TaskTemplate as TaskTemplate
+from docker.errors import (
+    InvalidArgument as InvalidArgument,
+    create_unexpected_kwargs_error as create_unexpected_kwargs_error,
+)
+from docker.types import (
+    ContainerSpec as ContainerSpec,
+    Placement as Placement,
+    ServiceMode as ServiceMode,
+    TaskTemplate as TaskTemplate,
+)
 
 class Service(Model):
     id_attribute: str

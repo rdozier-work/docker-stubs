@@ -8,7 +8,13 @@ class SSLHTTPAdapter(BaseHTTPAdapter):
     ssl_version: Incomplete
     assert_hostname: Incomplete
     assert_fingerprint: Incomplete
-    def __init__(self, ssl_version: Incomplete | None = ..., assert_hostname: Incomplete | None = ..., assert_fingerprint: Incomplete | None = ..., **kwargs) -> None: ...
+    def __init__(
+        self,
+        ssl_version: Incomplete | None = ...,
+        assert_hostname: Incomplete | None = ...,
+        assert_fingerprint: Incomplete | None = ...,
+        **kwargs
+    ) -> None: ...
     poolmanager: Incomplete
     def init_poolmanager(self, connections, maxsize, block: bool = ...) -> None: ...
     def get_connection(self, *args, **kwargs): ...
