@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "docker-stubs"}]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.11"
 
 
 [tool.poetry.group.dev.dependencies]

@@ -1,21 +1,22 @@
-from _typeshed import Incomplete
+from typing import Optional, Any, List
 from docker.transport.basehttpadapter import BaseHTTPAdapter as BaseHTTPAdapter
-
-PoolManager: Incomplete
+from urllib3.poolmanager import PoolManager
 
 class SSLHTTPAdapter(BaseHTTPAdapter):
-    __attrs__: Incomplete
-    ssl_version: Incomplete
-    assert_hostname: Incomplete
-    assert_fingerprint: Incomplete
+    __attrs__: List[str]
+    ssl_version: Optional[int]
+    assert_hostname: Optional[bool]
+    assert_fingerprint: Optional[str]
     def __init__(
         self,
-        ssl_version: Incomplete | None = ...,
-        assert_hostname: Incomplete | None = ...,
-        assert_fingerprint: Incomplete | None = ...,
-        **kwargs
+        ssl_version: Optional[int] = None,
+        assert_hostname: Optional[bool] = None,
+        assert_fingerprint: Optional[str] = None,
+        **kwargs: Any
     ) -> None: ...
-    poolmanager: Incomplete
-    def init_poolmanager(self, connections, maxsize, block: bool = ...) -> None: ...
-    def get_connection(self, *args, **kwargs): ...
-    def can_override_ssl_version(self): ...
+    poolmanager: PoolManager
+    def init_poolmanager(
+        self, connections: int, maxsize: int, block: bool = False
+    ) -> None: ...
+    def get_connection(self, *args: Any, **kwargs: Any) -> Any: ...
+    def can_override_ssl_version(self) -> bool: ...

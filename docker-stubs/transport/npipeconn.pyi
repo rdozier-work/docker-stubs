@@ -1,31 +1,45 @@
 import urllib3.connection
 from .. import constants as constants
 from .npipesocket import NpipeSocket as NpipeSocket
-from _typeshed import Incomplete
 from docker.transport.basehttpadapter import BaseHTTPAdapter as BaseHTTPAdapter
+from typing import Optional, Dict, Any, List
 
-RecentlyUsedContainer: Incomplete
+class RecentlyUsedContainer(Dict[str, Any]):
+    def __init__(self, maxsize: int = 10) -> None: ...
 
 class NpipeHTTPConnection(urllib3.connection.HTTPConnection):
-    npipe_path: Incomplete
-    timeout: Incomplete
-    def __init__(self, npipe_path, timeout: int = ...) -> None: ...
-    sock: Incomplete
+    npipe_path: str
+    timeout: int
+    def __init__(
+        self, npipe_path: str, timeout: int = constants.DEFAULT_TIMEOUT_SECONDS
+    ) -> None: ...
+    sock: NpipeSocket
     def connect(self) -> None: ...
 
 class NpipeHTTPConnectionPool(urllib3.connectionpool.HTTPConnectionPool):
-    npipe_path: Incomplete
-    timeout: Incomplete
-    def __init__(self, npipe_path, timeout: int = ..., maxsize: int = ...) -> None: ...
+    npipe_path: str
+    timeout: int
+    def __init__(
+        self,
+        npipe_path: str,
+        timeout: int = constants.DEFAULT_TIMEOUT_SECONDS,
+        maxsize: int = 1,
+    ) -> None: ...
 
 class NpipeHTTPAdapter(BaseHTTPAdapter):
-    __attrs__: Incomplete
-    npipe_path: Incomplete
-    timeout: Incomplete
-    max_pool_size: Incomplete
-    pools: Incomplete
+    __attrs__: List[str]
+    npipe_path: str
+    timeout: int
+    max_pool_size: int
+    pools: RecentlyUsedContainer
     def __init__(
-        self, base_url, timeout: int = ..., pool_connections=..., max_pool_size=...
+        self,
+        base_url: str,
+        timeout: int = constants.DEFAULT_TIMEOUT_SECONDS,
+        pool_connections: int = constants.DEFAULT_MAX_POOL_SIZE,
+        max_pool_size: int = constants.DEFAULT_MAX_POOL_SIZE,
     ) -> None: ...
-    def get_connection(self, url, proxies: Incomplete | None = ...): ...
-    def request_url(self, request, proxies): ...
+    def get_connection(
+        self, url: str, proxies: Optional[Dict[str, str]] = None
+    ) -> NpipeHTTPConnectionPool: ...
+    def request_url(self, request: Any, proxies: Optional[Dict[str, str]]) -> str: ...

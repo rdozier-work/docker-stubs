@@ -1,162 +1,167 @@
-from typing import TypedDict
-
-from .. import errors as errors
+from typing import Any, Dict, List, Optional, NoReturn, Type
+from .. import errors
 from ..utils.utils import (
-    convert_port_bindings as convert_port_bindings,
-    convert_tmpfs_mounts as convert_tmpfs_mounts,
-    convert_volume_binds as convert_volume_binds,
-    format_environment as format_environment,
-    format_extra_hosts as format_extra_hosts,
-    normalize_links as normalize_links,
-    parse_bytes as parse_bytes,
-    parse_devices as parse_devices,
-    split_command as split_command,
-    version_gte as version_gte,
-    version_lt as version_lt,
+    convert_port_bindings,
+    convert_tmpfs_mounts,
+    convert_volume_binds,
+    format_environment,
+    format_extra_hosts,
+    normalize_links,
+    parse_bytes,
+    parse_devices,
+    split_command,
+    version_gte,
+    version_lt,
 )
-from .base import DictType as DictType
-from .healthcheck import Healthcheck as Healthcheck
+from .base import DictType
+from .healthcheck import Healthcheck
 from _typeshed import Incomplete
 
 class LogConfigTypesEnum:
-    JSON: Incomplete
-    SYSLOG: Incomplete
-    JOURNALD: Incomplete
-    GELF: Incomplete
-    FLUENTD: Incomplete
-    NONE: Incomplete
+    JSON: str = "json-file"
+    SYSLOG: str = "syslog"
+    JOURNALD: str = "journald"
+    GELF: str = "gelf"
+    FLUENTD: str = "fluentd"
+    NONE: str = "none"
 
 class LogConfig(DictType):
     types = LogConfigTypesEnum
-    def __init__(self, **kwargs) -> None: ...
+    def __init__(self, **kwargs: Any) -> None: ...
     @property
-    def type(self): ...
+    def type(self) -> str: ...
     @property
-    def config(self): ...
-    def set_config_value(self, key, value) -> None: ...
-    def unset_config(self, key) -> None: ...
+    def config(self) -> Dict[str, Any]: ...
+    def set_config_value(self, key: str, value: Any) -> None: ...
+    def unset_config(self, key: str) -> None: ...
 
 class Ulimit(DictType):
-    def __init__(self, **kwargs) -> None: ...
+    def __init__(self, **kwargs: Any) -> None: ...
     @property
-    def name(self): ...
+    def name(self) -> str: ...
     @property
-    def soft(self): ...
+    def soft(self) -> int: ...
     @property
-    def hard(self): ...
+    def hard(self) -> int: ...
 
 class DeviceRequest(DictType):
-    def __init__(self, **kwargs) -> None: ...
+    def __init__(self, **kwargs: Any) -> None: ...
     @property
-    def driver(self): ...
+    def driver(self) -> str: ...
     @property
-    def count(self): ...
+    def count(self) -> int: ...
     @property
-    def device_ids(self): ...
+    def device_ids(self) -> List[str]: ...
     @property
-    def capabilities(self): ...
+    def capabilities(self) -> List[str]: ...
     @property
-    def options(self): ...
+    def options(self) -> Dict[str, Any]: ...
 
 class HostConfig(dict):
     def __init__(
         self,
-        version,
-        binds: Incomplete | None = ...,
-        port_bindings: Incomplete | None = ...,
-        lxc_conf: Incomplete | None = ...,
-        publish_all_ports: bool = ...,
-        links: Incomplete | None = ...,
-        privileged: bool = ...,
-        dns: Incomplete | None = ...,
-        dns_search: Incomplete | None = ...,
-        volumes_from: Incomplete | None = ...,
-        network_mode: Incomplete | None = ...,
-        restart_policy: Incomplete | None = ...,
-        cap_add: Incomplete | None = ...,
-        cap_drop: Incomplete | None = ...,
-        devices: Incomplete | None = ...,
-        extra_hosts: Incomplete | None = ...,
-        read_only: Incomplete | None = ...,
-        pid_mode: Incomplete | None = ...,
-        ipc_mode: Incomplete | None = ...,
-        security_opt: Incomplete | None = ...,
-        ulimits: Incomplete | None = ...,
-        log_config: Incomplete | None = ...,
-        mem_limit: Incomplete | None = ...,
-        memswap_limit: Incomplete | None = ...,
-        mem_reservation: Incomplete | None = ...,
-        kernel_memory: Incomplete | None = ...,
-        mem_swappiness: Incomplete | None = ...,
-        cgroup_parent: Incomplete | None = ...,
-        group_add: Incomplete | None = ...,
-        cpu_quota: Incomplete | None = ...,
-        cpu_period: Incomplete | None = ...,
-        blkio_weight: Incomplete | None = ...,
-        blkio_weight_device: Incomplete | None = ...,
-        device_read_bps: Incomplete | None = ...,
-        device_write_bps: Incomplete | None = ...,
-        device_read_iops: Incomplete | None = ...,
-        device_write_iops: Incomplete | None = ...,
-        oom_kill_disable: bool = ...,
-        shm_size: Incomplete | None = ...,
-        sysctls: Incomplete | None = ...,
-        tmpfs: Incomplete | None = ...,
-        oom_score_adj: Incomplete | None = ...,
-        dns_opt: Incomplete | None = ...,
-        cpu_shares: Incomplete | None = ...,
-        cpuset_cpus: Incomplete | None = ...,
-        userns_mode: Incomplete | None = ...,
-        uts_mode: Incomplete | None = ...,
-        pids_limit: Incomplete | None = ...,
-        isolation: Incomplete | None = ...,
-        auto_remove: bool = ...,
-        storage_opt: Incomplete | None = ...,
-        init: Incomplete | None = ...,
-        init_path: Incomplete | None = ...,
-        volume_driver: Incomplete | None = ...,
-        cpu_count: Incomplete | None = ...,
-        cpu_percent: Incomplete | None = ...,
-        nano_cpus: Incomplete | None = ...,
-        cpuset_mems: Incomplete | None = ...,
-        runtime: Incomplete | None = ...,
-        mounts: Incomplete | None = ...,
-        cpu_rt_period: Incomplete | None = ...,
-        cpu_rt_runtime: Incomplete | None = ...,
-        device_cgroup_rules: Incomplete | None = ...,
-        device_requests: Incomplete | None = ...,
-        cgroupns: Incomplete | None = ...,
+        version: Any,
+        binds: Any = None,
+        port_bindings: Any = None,
+        lxc_conf: Any = None,
+        publish_all_ports: bool = False,
+        links: Any = None,
+        privileged: bool = False,
+        dns: Any = None,
+        dns_search: Any = None,
+        volumes_from: Any = None,
+        network_mode: Any = None,
+        restart_policy: Any = None,
+        cap_add: Any = None,
+        cap_drop: Any = None,
+        devices: Any = None,
+        extra_hosts: Any = None,
+        read_only: Any = None,
+        pid_mode: Any = None,
+        ipc_mode: Any = None,
+        security_opt: Any = None,
+        ulimits: Any = None,
+        log_config: Any = None,
+        mem_limit: Any = None,
+        memswap_limit: Any = None,
+        mem_reservation: Any = None,
+        kernel_memory: Any = None,
+        mem_swappiness: Any = None,
+        cgroup_parent: Any = None,
+        group_add: Any = None,
+        cpu_quota: Any = None,
+        cpu_period: Any = None,
+        blkio_weight: Any = None,
+        blkio_weight_device: Any = None,
+        device_read_bps: Any = None,
+        device_write_bps: Any = None,
+        device_read_iops: Any = None,
+        device_write_iops: Any = None,
+        oom_kill_disable: bool = False,
+        shm_size: Any = None,
+        sysctls: Any = None,
+        tmpfs: Any = None,
+        oom_score_adj: Any = None,
+        dns_opt: Any = None,
+        cpu_shares: Any = None,
+        cpuset_cpus: Any = None,
+        userns_mode: Any = None,
+        uts_mode: Any = None,
+        pids_limit: Any = None,
+        isolation: Any = None,
+        auto_remove: bool = False,
+        storage_opt: Any = None,
+        init: Any = None,
+        init_path: Any = None,
+        volume_driver: Any = None,
+        cpu_count: Any = None,
+        cpu_percent: Any = None,
+        nano_cpus: Any = None,
+        cpuset_mems: Any = None,
+        runtime: Any = None,
+        mounts: Any = None,
+        cpu_rt_period: Any = None,
+        cpu_rt_runtime: Any = None,
+        device_cgroup_rules: Any = None,
+        device_requests: Any = None,
+        cgroupns: Any = None,
     ) -> None: ...
 
-def host_config_type_error(param, param_value, expected): ...
-def host_config_version_error(param, version, less_than: bool = ...): ...
-def host_config_value_error(param, param_value): ...
-def host_config_incompatible_error(param, param_value, incompatible_param): ...
+def host_config_type_error(
+    param: str, param_value: Any, expected: Type
+) -> NoReturn: ...
+def host_config_version_error(
+    param: str, version: str, less_than: bool = True
+) -> NoReturn: ...
+def host_config_value_error(param: str, param_value: Any) -> NoReturn: ...
+def host_config_incompatible_error(
+    param: str, param_value: Any, incompatible_param: str
+) -> NoReturn: ...
 
 class ContainerConfig(dict):
     def __init__(
         self,
-        version,
-        image,
-        command,
-        hostname: Incomplete | None = ...,
-        user: Incomplete | None = ...,
-        detach: bool = ...,
-        stdin_open: bool = ...,
-        tty: bool = ...,
-        ports: Incomplete | None = ...,
-        environment: Incomplete | None = ...,
-        volumes: Incomplete | None = ...,
-        network_disabled: bool = ...,
-        entrypoint: Incomplete | None = ...,
-        working_dir: Incomplete | None = ...,
-        domainname: Incomplete | None = ...,
-        host_config: Incomplete | None = ...,
-        mac_address: Incomplete | None = ...,
-        labels: Incomplete | None = ...,
-        stop_signal: Incomplete | None = ...,
-        networking_config: Incomplete | None = ...,
-        healthcheck: Incomplete | None = ...,
-        stop_timeout: Incomplete | None = ...,
-        runtime: Incomplete | None = ...,
+        version: str,
+        image: str,
+        command: str,
+        hostname: Optional[str] = None,
+        user: Optional[str] = None,
+        detach: bool = False,
+        stdin_open: bool = False,
+        tty: bool = False,
+        ports: Optional[Dict[str, Any]] = None,
+        environment: Optional[Dict[str, str]] = None,
+        volumes: Optional[Dict[str, str]] = None,
+        network_disabled: bool = False,
+        entrypoint: Optional[str] = None,
+        working_dir: Optional[str] = None,
+        domainname: Optional[str] = None,
+        host_config: Optional[HostConfig] = None,
+        mac_address: Optional[str] = None,
+        labels: Optional[Dict[str, str]] = None,
+        stop_signal: Optional[str] = None,
+        networking_config: Optional[Dict[str, Any]] = None,
+        healthcheck: Optional[Healthcheck] = None,
+        stop_timeout: Optional[int] = None,
+        runtime: Optional[str] = None,
     ) -> None: ...
