@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import Optional
 from docker import errors as errors
 from docker.context import Context as Context
 from docker.context.config import (
@@ -24,7 +24,7 @@ class ContextAPI:
     @classmethod
     def get_context(cls, name: Optional[str] = None) -> Context: ...
     @classmethod
-    def contexts(cls) -> List[Context]: ...
+    def contexts(cls) -> list[Context]: ...
     @classmethod
     def get_current_context(cls) -> Context: ...
     @classmethod

@@ -1,4 +1,4 @@
-from typing import Optional, Union, List, Dict, Any
+from typing import Optional, Union, Any
 from .. import auth as auth, errors as errors, utils as utils
 from ..constants import DEFAULT_DATA_CHUNK_SIZE as DEFAULT_DATA_CHUNK_SIZE
 from ..types import (
@@ -15,7 +15,7 @@ from ..utils import version_gte as version_gte
 from .images import Image as Image
 from .resource import Collection as _Collection, Model as Model
 from _typeshed import Incomplete
-from typing import NamedTuple, Literal, Dict, Collection, Unpack, TypedDict
+from typing import NamedTuple, Literal, dict, Collection, Unpack, Typeddict
 
 ContainerStatus = Literal[
     "created", "running", "paused", "restarting", "removing", "exited", "dead"
@@ -31,7 +31,7 @@ class Container(Model):
     @property
     def status(self) -> ContainerStatus: ...
     @property
-    def ports(self) -> Dict[str, Collection[str]]: ...
+    def ports(self) -> dict[str, Collection[str]]: ...
     def attach(self, **kwargs: Any): ...
     def attach_socket(self, **kwargs: Any): ...
     def commit(
@@ -40,7 +40,7 @@ class Container(Model):
     def diff(self): ...
     def exec_run(
         self,
-        cmd: Union[str, List[str]],
+        cmd: Union[str, list[str]],
         stdout: bool = True,
         stderr: bool = True,
         stdin: bool = False,
@@ -50,7 +50,7 @@ class Container(Model):
         detach: bool = False,
         stream: bool = False,
         socket: bool = False,
-        environment: Optional[Union[Dict[str, str], List[str]]] = None,
+        environment: Optional[Union[dict[str, str], list[str]]] = None,
         workdir: Optional[str] = None,
         demux: bool = False,
     ) -> Any: ...
@@ -77,18 +77,18 @@ class Container(Model):
     def update(self, **kwargs: Any): ...
     def wait(self, **kwargs: Any): ...
 
-class BlockIOWeightDevice(TypedDict):
+class BlockIOWeightDevice(Typeddict):
     Path: PathStr
     Weight: float
 
-class HealthCheckDict(TypedDict):
+class HealthCheckdict(Typeddict):
     test: list[str] | str
     interval: int
     timeout: int
     retries: int
     start_period: int
 
-class VolumeMappingDict(TypedDict):
+class VolumeMappingdict(Typeddict):
     bind: PathStr
     mode: Literal["rw", "ro"]
 
@@ -127,7 +127,7 @@ class ContainerCollectionRunKwargs(Versioned, total=False):
     environment: dict | list
     extra_hosts: dict[str, str]
     group_add: list[str]
-    healthcheck: HealthCheckDict
+    healthcheck: HealthCheckdict
     hostname: str
     init: bool
     init_path: PathStr
@@ -179,24 +179,24 @@ class ContainerCollectionRunKwargs(Versioned, total=False):
     userns_mode: str
     uts_mode: str
     volume_driver: str
-    volumes: VolumeMappingDict | list[str]
+    volumes: VolumeMappingdict | list[str]
     volumes_from: list[str]
     working_dir: str
 
 class ContainerCollectionCreateKwargs(Versioned, total=False):
     image: str
     command: Command
-    ports: Dict[str, Union[int, str]]
-    volumes: Dict[str, str]
-    network: Dict[str, Union[int, str]]
-    network_driver_opt: Optional[Dict[str, Union[int, str]]]
+    ports: dict[str, Union[int, str]]
+    volumes: dict[str, str]
+    network: dict[str, Union[int, str]]
+    network_driver_opt: Optional[dict[str, Union[int, str]]]
 
 class ContainerCollection(_Collection):
     model = Container
     def run(
         self,
         image: Union[str, Image],
-        command: Optional[Union[str, List[str]]] = None,
+        command: Optional[Union[str, list[str]]] = None,
         stdout: bool = True,
         stderr: bool = True,
         remove: bool = False,
@@ -205,7 +205,7 @@ class ContainerCollection(_Collection):
     def create(
         self,
         image: Union[str, Image],
-        command: Optional[Union[str, List[str]]] = None,
+        command: Optional[Union[str, list[str]]] = None,
         **kwargs: Unpack[ContainerCollectionCreateKwargs]
     ) -> Container: ...
     def get(self, container_id: str) -> Container: ...
@@ -213,15 +213,15 @@ class ContainerCollection(_Collection):
         self,
         all: bool = False,
         before: Optional[str] = None,
-        filters: Optional[Dict[str, Union[str, List[str]]]] = None,
+        filters: Optional[dict[str, Union[str, list[str]]]] = None,
         limit: int = -1,
         since: Optional[str] = None,
         sparse: bool = False,
         ignore_removed: bool = False,
-    ) -> List[Container]: ...
+    ) -> list[Container]: ...
     def prune(
-        self, filters: Optional[Dict[str, Union[str, List[str]]]] = None
-    ) -> Dict[str, Any]: ...
+        self, filters: Optional[dict[str, Union[str, list[str]]]] = None
+    ) -> dict[str, Any]: ...
 
 class ExecResult(NamedTuple):
     exit_code: int

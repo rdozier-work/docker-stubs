@@ -1,10 +1,10 @@
 import socket
 import urllib3.connection
 from .. import constants as constants
-from typing import Optional, Dict, Any, List
+from typing import Optional, Any
 from docker.transport.basehttpadapter import BaseHTTPAdapter as BaseHTTPAdapter
 
-class RecentlyUsedContainer(Dict[str, Any]):
+class RecentlyUsedContainer(dict[str, Any]):
     def __init__(self, maxsize: int = 10) -> None: ...
 
 class SSHSocket(socket.socket):
@@ -47,7 +47,7 @@ class SSHConnectionPool(urllib3.connectionpool.HTTPConnectionPool):
     ) -> None: ...
 
 class SSHHTTPAdapter(BaseHTTPAdapter):
-    __attrs__: List[str]
+    __attrs__: list[str]
     ssh_client: Any
     ssh_host: str
     timeout: int
@@ -62,6 +62,6 @@ class SSHHTTPAdapter(BaseHTTPAdapter):
         shell_out: bool = False,
     ) -> None: ...
     def get_connection(
-        self, url: str, proxies: Optional[Dict[str, str]] = None
+        self, url: str, proxies: Optional[dict[str, str]] = None
     ) -> SSHConnectionPool: ...
     def close(self) -> None: ...

@@ -1,17 +1,17 @@
-from typing import Optional, List
+from typing import Optional
 from .base import DictType as DictType
 
 class Healthcheck(DictType):
     def __init__(
         self,
-        test: Optional[List[str]] = None,
+        test: Optional[list[str]] = None,
         interval: Optional[int] = None,
         timeout: Optional[int] = None,
         retries: Optional[int] = None,
         start_period: Optional[int] = None,
     ) -> None: ...
     @property
-    def test(self) -> Optional[List[str]]: ...
+    def test(self) -> Optional[list[str]]: ...
     @property
     def interval(self) -> Optional[int]: ...
     @property

@@ -1,4 +1,4 @@
-from typing import Optional, Union, List, Dict, Any
+from typing import Optional, Union
 from .. import errors as errors, utils as utils
 from ..types import CancellableStream as CancellableStream
 
@@ -6,18 +6,18 @@ class ExecApiMixin:
     def exec_create(
         self,
         container: str,
-        cmd: Union[str, List[str]],
+        cmd: Union[str, list[str]],
         stdout: bool = True,
         stderr: bool = True,
         stdin: bool = False,
         tty: bool = False,
         privileged: bool = False,
         user: Optional[str] = None,
-        environment: Optional[Dict[str, str]] = None,
+        environment: Optional[dict[str, str]] = None,
         workdir: Optional[str] = None,
         detach_keys: Optional[str] = None,
-    ) -> Dict[str, Any]: ...
-    def exec_inspect(self, exec_id: str) -> Dict[str, Any]: ...
+    ) -> dict: ...
+    def exec_inspect(self, exec_id: str) -> dict: ...
     def exec_resize(
         self, exec_id: str, height: Optional[int] = None, width: Optional[int] = None
     ) -> None: ...
