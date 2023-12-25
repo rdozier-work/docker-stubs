@@ -1,5 +1,6 @@
-import requests.exceptions
-from .. import auth as auth
+from typing import Optional, Union, Dict, Any
+import requests
+from .. import auth as auth, utils as utils
 from ..constants import (
     DEFAULT_MAX_POOL_SIZE as DEFAULT_MAX_POOL_SIZE,
     DEFAULT_NUM_POOLS as DEFAULT_NUM_POOLS,
@@ -48,7 +49,6 @@ from .secret import SecretApiMixin as SecretApiMixin
 from .service import ServiceApiMixin as ServiceApiMixin
 from .swarm import SwarmApiMixin as SwarmApiMixin
 from .volume import VolumeApiMixin as VolumeApiMixin
-from _typeshed import Incomplete
 
 class APIClient(
     requests.Session,
@@ -65,23 +65,25 @@ class APIClient(
     SwarmApiMixin,
     VolumeApiMixin,
 ):
-    __attrs__: Incomplete
-    base_url: Incomplete
-    timeout: Incomplete
-    credstore_env: Incomplete
+    __attrs__: Dict[str, Any]
+    base_url: str
+    timeout: Union[int, float]
+    credstore_env: Dict[str, Any]
     def __init__(
         self,
-        base_url: Incomplete | None = ...,
-        version: Incomplete | None = ...,
-        timeout=...,
-        tls: bool = ...,
-        user_agent=...,
-        num_pools: Incomplete | None = ...,
-        credstore_env: Incomplete | None = ...,
-        use_ssh_client: bool = ...,
-        max_pool_size=...,
+        base_url: Optional[str] = None,
+        version: Optional[str] = None,
+        timeout: Union[int, float] = DEFAULT_TIMEOUT_SECONDS,
+        tls: bool = False,
+        user_agent: str = DEFAULT_USER_AGENT,
+        num_pools: int = DEFAULT_NUM_POOLS,
+        credstore_env: Optional[Dict[str, Any]] = None,
+        use_ssh_client: bool = False,
+        max_pool_size: int = DEFAULT_MAX_POOL_SIZE,
     ) -> None: ...
-    def get_adapter(self, url): ...
+    def get_adapter(
+        self, url: str
+    ) -> Union[NpipeHTTPAdapter, SSHHTTPAdapter, SSLHTTPAdapter, UnixHTTPAdapter]: ...
     @property
-    def api_version(self): ...
-    def reload_config(self, dockercfg_path: Incomplete | None = ...) -> None: ...
+    def api_version(self) -> str: ...
+    def reload_config(self, dockercfg_path: Optional[str] = None) -> None: ...

@@ -1,5 +1,4 @@
-from typing import TypedDict
-
+from typing import TypedDict, Optional, Union, List, Dict
 from .. import errors as errors, utils as utils
 from ..constants import DEFAULT_DATA_CHUNK_SIZE as DEFAULT_DATA_CHUNK_SIZE
 from ..types import (
@@ -9,145 +8,131 @@ from ..types import (
     HostConfig as HostConfig,
     NetworkingConfig as NetworkingConfig,
 )
-from _typeshed import Incomplete
-
 from ..types.base import Command, PathStr, MacAddress, Signal
-
 
 class CreateContainerReturnDict(TypedDict):
     Id: str
-    Warnings: list[str]
-
+    Warnings: List[str]
 
 class ContainerApiMixin:
     def attach(
         self,
-        container,
-        stdout: bool = ...,
-        stderr: bool = ...,
-        stream: bool = ...,
-        logs: bool = ...,
-        demux: bool = ...,
-    ): ...
+        container: str,
+        stdout: bool = True,
+        stderr: bool = True,
+        stream: bool = True,
+        logs: bool = True,
+        demux: bool = False,
+    ) -> CancellableStream: ...
     def attach_socket(
-        self, container, params: Incomplete | None = ..., ws: bool = ...
-    ): ...
+        self, container: str, params: Optional[Dict[str, str]] = None, ws: bool = False
+    ) -> CancellableStream: ...
     def commit(
         self,
-        container,
-        repository: Incomplete | None = ...,
-        tag: Incomplete | None = ...,
-        message: Incomplete | None = ...,
-        author: Incomplete | None = ...,
-        pause: bool = ...,
-        changes: Incomplete | None = ...,
-        conf: Incomplete | None = ...,
-    ): ...
+        container: str,
+        repository: Optional[str] = None,
+        tag: Optional[str] = None,
+        message: Optional[str] = None,
+        author: Optional[str] = None,
+        pause: bool = True,
+        changes: Optional[List[str]] = None,
+        conf: Optional[ContainerConfig] = None,
+    ) -> Dict[str, str]: ...
     def containers(
         self,
-        quiet: bool = ...,
-        all: bool = ...,
-        trunc: bool = ...,
-        latest: bool = ...,
-        since: Incomplete | None = ...,
-        before: Incomplete | None = ...,
-        limit: int = ...,
-        size: bool = ...,
-        filters: Incomplete | None = ...,
-    ): ...
+        quiet: bool = False,
+        all: bool = False,
+        trunc: bool = False,
+        latest: bool = False,
+        since: Optional[str] = None,
+        before: Optional[str] = None,
+        limit: int = -1,
+        size: bool = False,
+        filters: Optional[Dict[str, str]] = None,
+    ) -> List[Dict[str, str]]: ...
     def create_container(
         self,
         image: str,
-        command: Command | None = ...,
-        hostname: str | None = ...,
-        user: str | int | None = ...,
-        detach: bool = ...,
-        stdin_open: bool = ...,
-        tty: bool = ...,
-        ports: list[int] | None = ...,
-        environment: list[str] | dict[str, str] | None = ...,
-        volumes: str | list[PathStr] | None = ...,
-        network_disabled: bool = ...,
-        name: str | None = ...,
-        entrypoint: Command | None = ...,
-        working_dir: PathStr | None = ...,
-        domainname: str | None = ...,
-        host_config: dict | None = ...,
-        mac_address: MacAddress | None = ...,
-        labels: dict[str, str] | list[str] | None = ...,
-        stop_signal: Signal | None = ...,
-        networking_config: dict | None = ...,
-        healthcheck: dict | None = ...,
-        stop_timeout: int | None = ...,
-        runtime: str | None = ...,
-        use_config_proxy: bool = ...,
-        platform: str | None = ...,
+        command: Optional[Command] = None,
+        hostname: Optional[str] = None,
+        user: Optional[Union[str, int]] = None,
+        detach: bool = False,
+        stdin_open: bool = False,
+        tty: bool = False,
+        ports: Optional[List[int]] = None,
+        environment: Optional[Union[List[str], Dict[str, str]]] = None,
+        volumes: Optional[Union[str, List[PathStr]]] = None,
+        network_disabled: bool = False,
+        name: Optional[str] = None,
+        entrypoint: Optional[Command] = None,
+        working_dir: Optional[PathStr] = None,
+        domainname: Optional[str] = None,
+        host_config: Optional[Dict] = None,
+        mac_address: Optional[MacAddress] = None,
+        labels: Optional[Union[Dict[str, str], List[str]]] = None,
+        stop_signal: Optional[Signal] = None,
+        networking_config: Optional[Dict] = None,
+        healthcheck: Optional[Dict] = None,
+        stop_timeout: Optional[int] = None,
+        runtime: Optional[str] = None,
+        use_config_proxy: bool = False,
+        platform: Optional[str] = None,
     ) -> CreateContainerReturnDict: ...
-    def create_container_config(self, *args, **kwargs): ...
+    def create_container_config(
+        self, *args: str, **kwargs: Dict[str, str]
+    ) -> Dict[str, str]: ...
     def create_container_from_config(
-        self, config, name: Incomplete | None = ..., platform: Incomplete | None = ...
-    ): ...
-    def create_host_config(self, *args, **kwargs): ...
-    def create_networking_config(self, *args, **kwargs): ...
-    def create_endpoint_config(self, *args, **kwargs): ...
-    def diff(self, container): ...
-    def export(self, container, chunk_size=...): ...
+        self,
+        config: Dict[str, str],
+        name: Optional[str] = None,
+        platform: Optional[str] = None,
+    ) -> Dict[str, str]: ...
+    def create_host_config(
+        self, *args: str, **kwargs: Dict[str, str]
+    ) -> HostConfig: ...
+    def create_networking_config(
+        self, *args: str, **kwargs: Dict[str, str]
+    ) -> NetworkingConfig: ...
+    def create_endpoint_config(
+        self, *args: str, **kwargs: Dict[str, str]
+    ) -> EndpointConfig: ...
+    def diff(self, container: str) -> List[Dict[str, str]]: ...
+    def export(
+        self, container: str, chunk_size: int = DEFAULT_DATA_CHUNK_SIZE
+    ) -> CancellableStream: ...
     def get_archive(
-        self, container, path, chunk_size=..., encode_stream: bool = ...
-    ): ...
-    def inspect_container(self, container): ...
-    def kill(self, container, signal: Incomplete | None = ...) -> None: ...
+        self,
+        container: str,
+        path: PathStr,
+        chunk_size: int = DEFAULT_DATA_CHUNK_SIZE,
+        encode_stream: bool = False,
+    ) -> CancellableStream: ...
+    def inspect_container(self, container: str) -> Dict[str, str]: ...
+    def kill(self, container: str, signal: Optional[Signal] = None) -> None: ...
     def logs(
         self,
-        container,
-        stdout: bool = ...,
-        stderr: bool = ...,
-        stream: bool = ...,
-        timestamps: bool = ...,
-        tail: str = ...,
-        since: Incomplete | None = ...,
-        follow: Incomplete | None = ...,
-        until: Incomplete | None = ...,
-    ): ...
-    def pause(self, container) -> None: ...
-    def port(self, container, private_port): ...
-    def put_archive(self, container, path, data): ...
-    def prune_containers(self, filters: Incomplete | None = ...): ...
+        container: str,
+        stdout: bool = True,
+        stderr: bool = True,
+        stream: bool = True,
+        timestamps: bool = False,
+        tail: str = "all",
+        since: Optional[int] = None,
+        follow: Optional[bool] = None,
+        until: Optional[int] = None,
+    ) -> CancellableStream: ...
+    def pause(self, container: str) -> None: ...
+    def port(self, container: str, private_port: int) -> Dict[str, str]: ...
+    def put_archive(
+        self, container: str, path: PathStr, data: bytes
+    ) -> Dict[str, str]: ...
+    def prune_containers(
+        self, filters: Optional[Dict[str, str]] = None
+    ) -> Dict[str, str]: ...
     def remove_container(
-        self, container, v: bool = ..., link: bool = ..., force: bool = ...
+        self, container: str, v: bool = False, link: bool = False, force: bool = False
     ) -> None: ...
-    def rename(self, container, name) -> None: ...
-    def resize(self, container, height, width) -> None: ...
-    def restart(self, container, timeout: int = ...) -> None: ...
-    def start(self, container, *args, **kwargs) -> None: ...
-    def stats(
-        self,
-        container,
-        decode: Incomplete | None = ...,
-        stream: bool = ...,
-        one_shot: Incomplete | None = ...,
-    ): ...
-    def stop(self, container, timeout: Incomplete | None = ...) -> None: ...
-    def top(self, container, ps_args: Incomplete | None = ...): ...
-    def unpause(self, container) -> None: ...
-    def update_container(
-        self,
-        container,
-        blkio_weight: Incomplete | None = ...,
-        cpu_period: Incomplete | None = ...,
-        cpu_quota: Incomplete | None = ...,
-        cpu_shares: Incomplete | None = ...,
-        cpuset_cpus: Incomplete | None = ...,
-        cpuset_mems: Incomplete | None = ...,
-        mem_limit: Incomplete | None = ...,
-        mem_reservation: Incomplete | None = ...,
-        memswap_limit: Incomplete | None = ...,
-        kernel_memory: Incomplete | None = ...,
-        restart_policy: Incomplete | None = ...,
-    ): ...
-    def wait(
-        self,
-        container,
-        timeout: Incomplete | None = ...,
-        condition: Incomplete | None = ...,
-    ): ...
+    def rename(self, container: str, name: str) -> None: ...
+    def resize(self, container: str, height: int, width: int) -> None: ...
+    def restart(self, container: str, timeout: int = 10) -> None: ...
+    def start(self, container: str, *args: str, **kwargs: Dict[str, str]) -> None: ...

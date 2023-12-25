@@ -1,4 +1,4 @@
-from typing import NewType, Literal, TypedDict
+from typing import NewType, Literal, TypedDict, Any
 
 Command = str | list[str]
 PathStr = NewType("PathStr", str)
@@ -10,4 +10,4 @@ class Versioned(TypedDict):
     version: str
 
 class DictType(dict):
-    def __init__(self, init) -> None: ...
+    def __init__(self, init: Any) -> None: ...

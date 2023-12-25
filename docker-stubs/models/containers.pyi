@@ -1,13 +1,15 @@
-from ..api import APIClient as APIClient
+from typing import Optional, Union, List, Dict, Any
+from .. import auth as auth, errors as errors, utils as utils
 from ..constants import DEFAULT_DATA_CHUNK_SIZE as DEFAULT_DATA_CHUNK_SIZE
-from ..errors import (
-    ContainerError as ContainerError,
-    DockerException as DockerException,
-    ImageNotFound as ImageNotFound,
-    NotFound as NotFound,
-    create_unexpected_kwargs_error as create_unexpected_kwargs_error,
+from ..types import (
+    HostConfig as HostConfig,
+    DeviceRequest,
+    LogConfig,
+    Mount,
+    RestartPolicy,
+    Ulimit,
+    CancellableStream,
 )
-from ..types import HostConfig as HostConfig, DeviceRequest, LogConfig, Mount, RestartPolicy, Ulimit, CancellableStream
 from ..types.base import Command, Versioned, PathStr, MacAddress, Port
 from ..utils import version_gte as version_gte
 from .images import Image as Image
@@ -30,54 +32,54 @@ class Container(Model):
     def status(self) -> ContainerStatus: ...
     @property
     def ports(self) -> Dict[str, Collection[str]]: ...
-    def attach(self, **kwargs): ...
-    def attach_socket(self, **kwargs): ...
+    def attach(self, **kwargs: Any): ...
+    def attach_socket(self, **kwargs: Any): ...
     def commit(
-        self,
-        repository: Incomplete | None = ...,
-        tag: Incomplete | None = ...,
-        **kwargs
+        self, repository: Optional[str] = None, tag: Optional[str] = None, **kwargs: Any
     ): ...
     def diff(self): ...
     def exec_run(
         self,
-        cmd,
-        stdout: bool = ...,
-        stderr: bool = ...,
-        stdin: bool = ...,
-        tty: bool = ...,
-        privileged: bool = ...,
-        user: str = ...,
-        detach: bool = ...,
-        stream: bool = ...,
-        socket: bool = ...,
-        environment: Incomplete | None = ...,
-        workdir: Incomplete | None = ...,
-        demux: bool = ...,
-    ): ...
-    def export(self, chunk_size=...): ...
-    def get_archive(self, path, chunk_size=..., encode_stream: bool = ...): ...
-    def kill(self, signal: Incomplete | None = ...): ...
-    def logs(self, **kwargs): ...
+        cmd: Union[str, List[str]],
+        stdout: bool = True,
+        stderr: bool = True,
+        stdin: bool = False,
+        tty: bool = False,
+        privileged: bool = False,
+        user: str = "",
+        detach: bool = False,
+        stream: bool = False,
+        socket: bool = False,
+        environment: Optional[Union[Dict[str, str], List[str]]] = None,
+        workdir: Optional[str] = None,
+        demux: bool = False,
+    ) -> Any: ...
+    def export(self, chunk_size: int = DEFAULT_DATA_CHUNK_SIZE) -> Any: ...
+    def get_archive(
+        self,
+        path: str,
+        chunk_size: int = DEFAULT_DATA_CHUNK_SIZE,
+        encode_stream: bool = False,
+    ) -> Any: ...
+    def kill(self, signal: Optional[str] = None): ...
+    def logs(self, **kwargs: Any): ...
     def pause(self): ...
-    def put_archive(self, path, data): ...
-    def remove(self, **kwargs): ...
-    def rename(self, name): ...
-    def resize(self, height, width): ...
-    def restart(self, **kwargs): ...
-    def start(self, **kwargs): ...
-    def stats(self, **kwargs): ...
-    def stop(self, **kwargs): ...
-    def top(self, **kwargs): ...
+    def put_archive(self, path: str, data: Any): ...
+    def remove(self, **kwargs: Any): ...
+    def rename(self, name: str): ...
+    def resize(self, height: int, width: int): ...
+    def restart(self, **kwargs: Any): ...
+    def start(self, **kwargs: Any): ...
+    def stats(self, **kwargs: Any): ...
+    def stop(self, **kwargs: Any): ...
+    def top(self, **kwargs: Any): ...
     def unpause(self): ...
-    def update(self, **kwargs): ...
-    def wait(self, **kwargs): ...
-
+    def update(self, **kwargs: Any): ...
+    def wait(self, **kwargs: Any): ...
 
 class BlockIOWeightDevice(TypedDict):
     Path: PathStr
     Weight: float
-
 
 class HealthCheckDict(TypedDict):
     test: list[str] | str
@@ -86,11 +88,9 @@ class HealthCheckDict(TypedDict):
     retries: int
     start_period: int
 
-
 class VolumeMappingDict(TypedDict):
     bind: PathStr
     mode: Literal["rw", "ro"]
-
 
 class ContainerCollectionRunKwargs(Versioned, total=False):
     image: str
@@ -124,7 +124,7 @@ class ContainerCollectionRunKwargs(Versioned, total=False):
     dns_search: list
     domainname: str | list
     entrypoint: str | list
-    environment: dict| list
+    environment: dict | list
     extra_hosts: dict[str, str]
     group_add: list[str]
     healthcheck: HealthCheckDict
@@ -186,43 +186,43 @@ class ContainerCollectionRunKwargs(Versioned, total=False):
 class ContainerCollectionCreateKwargs(Versioned, total=False):
     image: str
     command: Command
-    ports: dict
-    volumes: dict
-    network: dict
-    network_driver_opt: Incomplete | None
-
+    ports: Dict[str, Union[int, str]]
+    volumes: Dict[str, str]
+    network: Dict[str, Union[int, str]]
+    network_driver_opt: Optional[Dict[str, Union[int, str]]]
 
 class ContainerCollection(_Collection):
     model = Container
     def run(
         self,
-        image: str | Image,
-        command: Command | None = ...,
-        stdout: bool = ...,
-        stderr: bool = ...,
-        remove: bool = ...,
+        image: Union[str, Image],
+        command: Optional[Union[str, List[str]]] = None,
+        stdout: bool = True,
+        stderr: bool = True,
+        remove: bool = False,
         **kwargs: Unpack[ContainerCollectionRunKwargs]
-    ) -> Container | bytes | CancellableStream: ...
-    def create(self,
-               image: str | Image,
-               command: Command | None = ...,
-               **kwargs: Unpack[ContainerCollectionCreateKwargs]) -> Container: ...
+    ) -> Union[Container, bytes, CancellableStream]: ...
+    def create(
+        self,
+        image: Union[str, Image],
+        command: Optional[Union[str, List[str]]] = None,
+        **kwargs: Unpack[ContainerCollectionCreateKwargs]
+    ) -> Container: ...
     def get(self, container_id: str) -> Container: ...
     def list(
         self,
-        all: bool = ...,
-        before: Incomplete | None = ...,
-        filters: Incomplete | None = ...,
-        limit: int = ...,
-        since: Incomplete | None = ...,
-        sparse: bool = ...,
-        ignore_removed: bool = ...,
-    ): ...
-    def prune(self, filters: Incomplete | None = ...): ...
-
-RUN_CREATE_KWARGS: Incomplete
-RUN_HOST_CONFIG_KWARGS: Incomplete
+        all: bool = False,
+        before: Optional[str] = None,
+        filters: Optional[Dict[str, Union[str, List[str]]]] = None,
+        limit: int = -1,
+        since: Optional[str] = None,
+        sparse: bool = False,
+        ignore_removed: bool = False,
+    ) -> List[Container]: ...
+    def prune(
+        self, filters: Optional[Dict[str, Union[str, List[str]]]] = None
+    ) -> Dict[str, Any]: ...
 
 class ExecResult(NamedTuple):
-    exit_code: Incomplete
-    output: Incomplete
+    exit_code: int
+    output: Union[str, bytes]

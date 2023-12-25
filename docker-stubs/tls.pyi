@@ -1,21 +1,21 @@
+from typing import Optional, Union, Tuple
 from . import errors as errors
 from .transport import SSLHTTPAdapter as SSLHTTPAdapter
-from _typeshed import Incomplete
 
 class TLSConfig:
-    cert: Incomplete
-    ca_cert: Incomplete
-    verify: Incomplete
-    ssl_version: Incomplete
-    assert_hostname: Incomplete
-    assert_fingerprint: Incomplete
+    cert: Optional[Union[str, Tuple[str, str]]]
+    ca_cert: Optional[str]
+    verify: Union[bool, str]
+    ssl_version: Optional[int]
+    assert_hostname: Optional[Union[bool, str]]
+    assert_fingerprint: Optional[str]
     def __init__(
         self,
-        client_cert: Incomplete | None = ...,
-        ca_cert: Incomplete | None = ...,
-        verify: Incomplete | None = ...,
-        ssl_version: Incomplete | None = ...,
-        assert_hostname: Incomplete | None = ...,
-        assert_fingerprint: Incomplete | None = ...,
+        client_cert: Optional[Union[str, Tuple[str, str]]] = None,
+        ca_cert: Optional[str] = None,
+        verify: Union[bool, str] = None,
+        ssl_version: Optional[int] = None,
+        assert_hostname: Optional[Union[bool, str]] = None,
+        assert_fingerprint: Optional[str] = None,
     ) -> None: ...
-    def configure_client(self, client) -> None: ...
+    def configure_client(self, client: SSLHTTPAdapter) -> None: ...
