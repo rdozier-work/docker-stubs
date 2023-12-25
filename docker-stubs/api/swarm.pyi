@@ -1,4 +1,4 @@
-from typing import Optional, Dict, List
+from typing import Optional
 from .. import errors as errors, types as types, utils as utils
 from ..constants import (
     DEFAULT_SWARM_ADDR_POOL as DEFAULT_SWARM_ADDR_POOL,
@@ -13,8 +13,8 @@ class SwarmApiMixin:
         advertise_addr: Optional[str] = None,
         listen_addr: str = DEFAULT_SWARM_ADDR_POOL,
         force_new_cluster: bool = False,
-        swarm_spec: Optional[Dict[str, str]] = None,
-        default_addr_pool: Optional[List[str]] = None,
+        swarm_spec: Optional[dict[str, str]] = None,
+        default_addr_pool: Optional[list[str]] = None,
         subnet_size: Optional[int] = None,
         data_path_addr: Optional[str] = None,
         data_path_port: Optional[int] = None,
@@ -23,23 +23,23 @@ class SwarmApiMixin:
     def inspect_node(self, node_id: str): ...
     def join_swarm(
         self,
-        remote_addrs: List[str],
+        remote_addrs: list[str],
         join_token: str,
         listen_addr: str = DEFAULT_SWARM_ADDR_POOL,
         advertise_addr: Optional[str] = None,
         data_path_addr: Optional[str] = None,
     ): ...
     def leave_swarm(self, force: bool = False): ...
-    def nodes(self, filters: Optional[Dict[str, str]] = None): ...
+    def nodes(self, filters: Optional[dict[str, str]] = None): ...
     def remove_node(self, node_id: str, force: bool = False): ...
     def unlock_swarm(self, key: str): ...
     def update_node(
-        self, node_id: str, version: str, node_spec: Optional[Dict[str, str]] = None
+        self, node_id: str, version: str, node_spec: Optional[dict[str, str]] = None
     ): ...
     def update_swarm(
         self,
         version: str,
-        swarm_spec: Optional[Dict[str, str]] = None,
+        swarm_spec: Optional[dict[str, str]] = None,
         rotate_worker_token: bool = False,
         rotate_manager_token: bool = False,
         rotate_manager_unlock_key: bool = False,

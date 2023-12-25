@@ -1,14 +1,14 @@
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 from ..api import APIClient as APIClient
 
 class Model:
     id_attribute: str
     client: APIClient
     collection: "Collection"
-    attrs: Dict[str, Any]
+    attrs: dict[str, Any]
     def __init__(
         self,
-        attrs: Optional[Dict[str, Any]] = None,
+        attrs: Optional[dict[str, Any]] = None,
         client: Optional[APIClient] = None,
         collection: Optional["Collection"] = None,
     ) -> None: ...
@@ -28,4 +28,4 @@ class Collection:
     def list(self) -> None: ...
     def get(self, key: str) -> Model: ...
     def create(self, **kwargs: Any) -> Model: ...
-    def prepare_model(self, attrs: Dict[str, Any]) -> Model: ...
+    def prepare_model(self, attrs: dict[str, Any]) -> Model: ...

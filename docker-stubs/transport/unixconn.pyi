@@ -1,9 +1,9 @@
 import urllib3.connection
 from .. import constants as constants
-from typing import Optional, Dict, Any, List
+from typing import Optional, Any
 from docker.transport.basehttpadapter import BaseHTTPAdapter as BaseHTTPAdapter
 
-class RecentlyUsedContainer(Dict[str, Any]):
+class RecentlyUsedContainer(dict[str, Any]):
     def __init__(self, maxsize: int = 10) -> None: ...
 
 class UnixHTTPConnection(urllib3.connection.HTTPConnection):
@@ -32,7 +32,7 @@ class UnixHTTPConnectionPool(urllib3.connectionpool.HTTPConnectionPool):
     ) -> None: ...
 
 class UnixHTTPAdapter(BaseHTTPAdapter):
-    __attrs__: List[str]
+    __attrs__: list[str]
     socket_path: str
     timeout: int
     max_pool_size: int
@@ -45,6 +45,6 @@ class UnixHTTPAdapter(BaseHTTPAdapter):
         max_pool_size: int = constants.DEFAULT_MAX_POOL_SIZE,
     ) -> None: ...
     def get_connection(
-        self, url: str, proxies: Optional[Dict[str, str]] = None
+        self, url: str, proxies: Optional[dict[str, str]] = None
     ) -> UnixHTTPConnectionPool: ...
-    def request_url(self, request: Any, proxies: Dict[str, str]) -> str: ...
+    def request_url(self, request: Any, proxies: dict[str, str]) -> str: ...

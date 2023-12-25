@@ -1,5 +1,5 @@
 import requests
-from typing import Optional, Union, Dict, Any
+from typing import Optional, Any
 from requests.models import Response
 
 class DockerException(Exception): ...
@@ -56,7 +56,7 @@ class BuildError(DockerException):
 
 class ImageLoadError(DockerException): ...
 
-def create_unexpected_kwargs_error(name: str, kwargs: Dict[str, Any]) -> None: ...
+def create_unexpected_kwargs_error(name: str, kwargs: dict[str, Any]) -> None: ...
 
 class MissingContextParameter(DockerException):
     param: str

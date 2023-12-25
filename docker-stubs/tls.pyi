@@ -1,9 +1,9 @@
-from typing import Optional, Union, Tuple
+from typing import Optional, Union
 from . import errors as errors
 from .transport import SSLHTTPAdapter as SSLHTTPAdapter
 
 class TLSConfig:
-    cert: Optional[Union[str, Tuple[str, str]]]
+    cert: Optional[Union[str, tuple[str, str]]]
     ca_cert: Optional[str]
     verify: Union[bool, str]
     ssl_version: Optional[int]
@@ -11,7 +11,7 @@ class TLSConfig:
     assert_fingerprint: Optional[str]
     def __init__(
         self,
-        client_cert: Optional[Union[str, Tuple[str, str]]] = None,
+        client_cert: Optional[Union[str, tuple[str, str]]] = None,
         ca_cert: Optional[str] = None,
         verify: Union[bool, str] = None,
         ssl_version: Optional[int] = None,

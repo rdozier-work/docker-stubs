@@ -1,9 +1,9 @@
-from typing import Optional, Any, List
+from typing import Optional, Any
 from docker.transport.basehttpadapter import BaseHTTPAdapter as BaseHTTPAdapter
 from urllib3.poolmanager import PoolManager
 
 class SSLHTTPAdapter(BaseHTTPAdapter):
-    __attrs__: List[str]
+    __attrs__: list[str]
     ssl_version: Optional[int]
     assert_hostname: Optional[bool]
     assert_fingerprint: Optional[str]

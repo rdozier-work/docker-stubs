@@ -1,5 +1,5 @@
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 def create_environment_dict(
-    overrides: Optional[Dict[str, Any]] = None
-) -> Dict[str, Any]: ...
+    overrides: Optional[dict[str, Any]] = None
+) -> dict[str, Any]: ...

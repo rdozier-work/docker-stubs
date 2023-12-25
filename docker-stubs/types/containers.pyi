@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional, NoReturn, Type
+from typing import Any, Optional, NoReturn, Type
 from .. import errors
 from ..utils.utils import (
     convert_port_bindings,
@@ -31,7 +31,7 @@ class LogConfig(DictType):
     @property
     def type(self) -> str: ...
     @property
-    def config(self) -> Dict[str, Any]: ...
+    def config(self) -> dict[str, Any]: ...
     def set_config_value(self, key: str, value: Any) -> None: ...
     def unset_config(self, key: str) -> None: ...
 
@@ -51,11 +51,11 @@ class DeviceRequest(DictType):
     @property
     def count(self) -> int: ...
     @property
-    def device_ids(self) -> List[str]: ...
+    def device_ids(self) -> list[str]: ...
     @property
-    def capabilities(self) -> List[str]: ...
+    def capabilities(self) -> list[str]: ...
     @property
-    def options(self) -> Dict[str, Any]: ...
+    def options(self) -> dict[str, Any]: ...
 
 class HostConfig(dict):
     def __init__(
@@ -149,18 +149,18 @@ class ContainerConfig(dict):
         detach: bool = False,
         stdin_open: bool = False,
         tty: bool = False,
-        ports: Optional[Dict[str, Any]] = None,
-        environment: Optional[Dict[str, str]] = None,
-        volumes: Optional[Dict[str, str]] = None,
+        ports: Optional[dict[str, Any]] = None,
+        environment: Optional[dict[str, str]] = None,
+        volumes: Optional[dict[str, str]] = None,
         network_disabled: bool = False,
         entrypoint: Optional[str] = None,
         working_dir: Optional[str] = None,
         domainname: Optional[str] = None,
         host_config: Optional[HostConfig] = None,
         mac_address: Optional[str] = None,
-        labels: Optional[Dict[str, str]] = None,
+        labels: Optional[dict[str, str]] = None,
         stop_signal: Optional[str] = None,
-        networking_config: Optional[Dict[str, Any]] = None,
+        networking_config: Optional[dict[str, Any]] = None,
         healthcheck: Optional[Healthcheck] = None,
         stop_timeout: Optional[int] = None,
         runtime: Optional[str] = None,

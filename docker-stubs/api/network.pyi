@@ -1,4 +1,4 @@
-from typing import Optional, Dict, List
+from typing import Optional
 from .. import utils as utils
 from ..errors import InvalidVersion as InvalidVersion
 from ..utils import (
@@ -10,25 +10,25 @@ from ..utils import (
 class NetworkApiMixin:
     def networks(
         self,
-        names: Optional[List[str]] = None,
-        ids: Optional[List[str]] = None,
-        filters: Optional[Dict[str, str]] = None,
+        names: Optional[list[str]] = None,
+        ids: Optional[list[str]] = None,
+        filters: Optional[dict[str, str]] = None,
     ): ...
     def create_network(
         self,
         name: str,
         driver: Optional[str] = None,
-        options: Optional[Dict[str, str]] = None,
-        ipam: Optional[Dict[str, str]] = None,
+        options: Optional[dict[str, str]] = None,
+        ipam: Optional[dict[str, str]] = None,
         check_duplicate: Optional[bool] = None,
         internal: bool = False,
-        labels: Optional[Dict[str, str]] = None,
+        labels: Optional[dict[str, str]] = None,
         enable_ipv6: bool = False,
         attachable: Optional[bool] = None,
         scope: Optional[str] = None,
         ingress: Optional[bool] = None,
     ): ...
-    def prune_networks(self, filters: Optional[Dict[str, str]] = None): ...
+    def prune_networks(self, filters: Optional[dict[str, str]] = None): ...
     def remove_network(self, net_id: str) -> None: ...
     def inspect_network(
         self, net_id: str, verbose: Optional[bool] = None, scope: Optional[str] = None
@@ -39,10 +39,10 @@ class NetworkApiMixin:
         net_id: str,
         ipv4_address: Optional[str] = None,
         ipv6_address: Optional[str] = None,
-        aliases: Optional[List[str]] = None,
-        links: Optional[List[str]] = None,
-        link_local_ips: Optional[List[str]] = None,
-        driver_opt: Optional[Dict[str, str]] = None,
+        aliases: Optional[list[str]] = None,
+        links: Optional[list[str]] = None,
+        link_local_ips: Optional[list[str]] = None,
+        driver_opt: Optional[dict[str, str]] = None,
         mac_address: Optional[str] = None,
     ) -> None: ...
     def disconnect_container_from_network(

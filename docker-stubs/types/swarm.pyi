@@ -1,8 +1,8 @@
-from typing import Optional, Dict, Any
+from typing import Optional, Any
 from ..errors import InvalidVersion
 from ..utils import version_lt
 
-class SwarmSpec(Dict[str, Any]):
+class SwarmSpec(dict[str, Any]):
     def __init__(
         self,
         version: str,
@@ -14,21 +14,21 @@ class SwarmSpec(Dict[str, Any]):
         election_tick: Optional[int] = None,
         dispatcher_heartbeat_period: Optional[int] = None,
         node_cert_expiry: Optional[int] = None,
-        external_cas: Optional[Dict[str, Any]] = None,
+        external_cas: Optional[dict[str, Any]] = None,
         name: Optional[str] = None,
-        labels: Optional[Dict[str, str]] = None,
+        labels: Optional[dict[str, str]] = None,
         signing_ca_cert: Optional[str] = None,
         signing_ca_key: Optional[str] = None,
         ca_force_rotate: Optional[int] = None,
         autolock_managers: Optional[bool] = None,
-        log_driver: Optional[Dict[str, Any]] = None,
+        log_driver: Optional[dict[str, Any]] = None,
     ) -> None: ...
 
-class SwarmExternalCA(Dict[str, Any]):
+class SwarmExternalCA(dict[str, Any]):
     def __init__(
         self,
         url: str,
         protocol: Optional[str] = None,
-        options: Optional[Dict[str, Any]] = None,
+        options: Optional[dict[str, Any]] = None,
         ca_cert: Optional[str] = None,
     ) -> None: ...

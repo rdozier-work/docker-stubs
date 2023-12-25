@@ -1,4 +1,4 @@
-from typing import Optional, Union, Dict, Any
+from typing import Optional, Union, Any
 import requests
 from .. import auth as auth, utils as utils
 from ..constants import (
@@ -65,10 +65,10 @@ class APIClient(
     SwarmApiMixin,
     VolumeApiMixin,
 ):
-    __attrs__: Dict[str, Any]
+    __attrs__: dict[str, Any]
     base_url: str
     timeout: Union[int, float]
-    credstore_env: Dict[str, Any]
+    credstore_env: dict[str, Any]
     def __init__(
         self,
         base_url: Optional[str] = None,
@@ -77,7 +77,7 @@ class APIClient(
         tls: bool = False,
         user_agent: str = DEFAULT_USER_AGENT,
         num_pools: int = DEFAULT_NUM_POOLS,
-        credstore_env: Optional[Dict[str, Any]] = None,
+        credstore_env: Optional[dict[str, Any]] = None,
         use_ssh_client: bool = False,
         max_pool_size: int = DEFAULT_MAX_POOL_SIZE,
     ) -> None: ...

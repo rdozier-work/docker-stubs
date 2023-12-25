@@ -1,6 +1,6 @@
 from ..api import APIClient as APIClient
 from .resource import Collection as Collection, Model as Model
-from typing import Optional, Dict, Any, List
+from typing import Optional, Any
 
 class Volume(Model):
     id_attribute: str = "Name"
@@ -11,8 +11,8 @@ class Volume(Model):
 class VolumeCollection(Collection):
     model = Volume
     def create(
-        self, name: Optional[str] = None, **kwargs: Dict[str, Any]
+        self, name: Optional[str] = None, **kwargs: dict[str, Any]
     ) -> Volume: ...
     def get(self, volume_id: str) -> Volume: ...
-    def list(self, **kwargs: Dict[str, Any]) -> List[Volume]: ...
-    def prune(self, filters: Optional[Dict[str, Any]] = None) -> Dict[str, Any]: ...
+    def list(self, **kwargs: dict[str, Any]) -> list[Volume]: ...
+    def prune(self, filters: Optional[dict[str, Any]] = None) -> dict[str, Any]: ...
