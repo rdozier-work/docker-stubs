@@ -1,89 +1,104 @@
+from typing import Optional, Union, Any
 from .. import auth as auth, errors as errors, utils as utils
 from ..constants import DEFAULT_DATA_CHUNK_SIZE as DEFAULT_DATA_CHUNK_SIZE
-from _typeshed import Incomplete
+from ..types import ImageSummary, ImageInspect, DistributionInspect
 
-log: Incomplete
+log: Any
 
 class ImageApiMixin:
-    def get_image(self, image, chunk_size=...): ...
-    def history(self, image): ...
+    def get_image(
+        self, image: str, chunk_size: int = DEFAULT_DATA_CHUNK_SIZE
+    ) -> Any: ...
+    def history(self, image: str) -> list[dict[str, Any]]: ...
     def images(
         self,
-        name: Incomplete | None = ...,
-        quiet: bool = ...,
-        all: bool = ...,
-        filters: Incomplete | None = ...,
-    ): ...
+        name: Optional[str] = None,
+        quiet: bool = False,
+        all: bool = False,
+        filters: Optional[dict[str, Any]] = None,
+    ) -> list[ImageSummary]: ...
     def import_image(
         self,
-        src: Incomplete | None = ...,
-        repository: Incomplete | None = ...,
-        tag: Incomplete | None = ...,
-        image: Incomplete | None = ...,
-        changes: Incomplete | None = ...,
-        stream_src: bool = ...,
-    ): ...
+        src: Optional[str] = None,
+        repository: Optional[str] = None,
+        tag: Optional[str] = None,
+        image: Optional[str] = None,
+        changes: Optional[list[str]] = None,
+        stream_src: bool = False,
+    ) -> dict[str, Any]: ...
     def import_image_from_data(
         self,
-        data,
-        repository: Incomplete | None = ...,
-        tag: Incomplete | None = ...,
-        changes: Incomplete | None = ...,
-    ): ...
+        data: Any,
+        repository: Optional[str] = None,
+        tag: Optional[str] = None,
+        changes: Optional[list[str]] = None,
+    ) -> dict[str, Any]: ...
     def import_image_from_file(
         self,
-        filename,
-        repository: Incomplete | None = ...,
-        tag: Incomplete | None = ...,
-        changes: Incomplete | None = ...,
-    ): ...
+        filename: str,
+        repository: Optional[str] = None,
+        tag: Optional[str] = None,
+        changes: Optional[list[str]] = None,
+    ) -> dict[str, Any]: ...
     def import_image_from_stream(
         self,
-        stream,
-        repository: Incomplete | None = ...,
-        tag: Incomplete | None = ...,
-        changes: Incomplete | None = ...,
-    ): ...
+        stream: Any,
+        repository: Optional[str] = None,
+        tag: Optional[str] = None,
+        changes: Optional[list[str]] = None,
+    ) -> dict[str, Any]: ...
     def import_image_from_url(
         self,
-        url,
-        repository: Incomplete | None = ...,
-        tag: Incomplete | None = ...,
-        changes: Incomplete | None = ...,
-    ): ...
+        url: str,
+        repository: Optional[str] = None,
+        tag: Optional[str] = None,
+        changes: Optional[list[str]] = None,
+    ) -> dict[str, Any]: ...
     def import_image_from_image(
         self,
-        image,
-        repository: Incomplete | None = ...,
-        tag: Incomplete | None = ...,
-        changes: Incomplete | None = ...,
-    ): ...
-    def inspect_image(self, image): ...
-    def inspect_distribution(self, image, auth_config: Incomplete | None = ...): ...
-    def load_image(self, data, quiet: Incomplete | None = ...): ...
-    def prune_images(self, filters: Incomplete | None = ...): ...
+        image: str,
+        repository: Optional[str] = None,
+        tag: Optional[str] = None,
+        changes: Optional[list[str]] = None,
+    ) -> dict[str, Any]: ...
+    def inspect_image(self, image: str) -> ImageInspect: ...
+    def inspect_distribution(
+        self, image: str, auth_config: Optional[dict[str, Any]] = None
+    ) -> DistributionInspect: ...
+    def load_image(self, data: Any, quiet: Optional[bool] = None) -> dict[str, Any]: ...
+    def prune_images(
+        self, filters: Optional[dict[str, Any]] = None
+    ) -> dict[str, Any]: ...
     def pull(
         self,
-        repository,
-        tag: Incomplete | None = ...,
-        stream: bool = ...,
-        auth_config: Incomplete | None = ...,
-        decode: bool = ...,
-        platform: Incomplete | None = ...,
-        all_tags: bool = ...,
-    ): ...
+        repository: str,
+        tag: Optional[str] = None,
+        stream: bool = False,
+        auth_config: Optional[dict[str, Any]] = None,
+        decode: bool = False,
+        platform: Optional[str] = None,
+        all_tags: bool = False,
+    ) -> Any: ...
     def push(
         self,
-        repository,
-        tag: Incomplete | None = ...,
-        stream: bool = ...,
-        auth_config: Incomplete | None = ...,
-        decode: bool = ...,
-    ): ...
-    def remove_image(self, image, force: bool = ..., noprune: bool = ...): ...
-    def search(self, term, limit: Incomplete | None = ...): ...
+        repository: str,
+        tag: Optional[str] = None,
+        stream: bool = False,
+        auth_config: Optional[dict[str, Any]] = None,
+        decode: bool = False,
+    ) -> Any: ...
+    def remove_image(
+        self, image: str, force: bool = False, noprune: bool = False
+    ) -> dict[str, Any]: ...
+    def search(
+        self, term: str, limit: Optional[int] = None
+    ) -> list[dict[str, Any]]: ...
     def tag(
-        self, image, repository, tag: Incomplete | None = ..., force: bool = ...
-    ): ...
+        self,
+        image: str,
+        repository: str,
+        tag: Optional[str] = None,
+        force: bool = False,
+    ) -> dict[str, Any]: ...
 
-def is_file(src): ...
+def is_file(src: Any) -> bool: ...

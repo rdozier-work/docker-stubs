@@ -1,32 +1,33 @@
+from typing import Optional, Union
 from .. import errors as errors, utils as utils
 from ..types import CancellableStream as CancellableStream
-from _typeshed import Incomplete
+from ..types.base import Command
 
 class ExecApiMixin:
     def exec_create(
         self,
-        container,
-        cmd,
-        stdout: bool = ...,
-        stderr: bool = ...,
-        stdin: bool = ...,
-        tty: bool = ...,
-        privileged: bool = ...,
-        user: str = ...,
-        environment: Incomplete | None = ...,
-        workdir: Incomplete | None = ...,
-        detach_keys: Incomplete | None = ...,
-    ): ...
-    def exec_inspect(self, exec_id): ...
+        container: str,
+        cmd: Union[str, list[str]],
+        stdout: bool = True,
+        stderr: bool = True,
+        stdin: bool = False,
+        tty: bool = False,
+        privileged: bool = False,
+        user: Optional[str] = None,
+        environment: Optional[dict[str, str]] = None,
+        workdir: Optional[str] = None,
+        detach_keys: Optional[str] = None,
+    ) -> dict[str, str]: ...
+    def exec_inspect(self, exec_id: str) -> dict[str, str]: ...
     def exec_resize(
-        self, exec_id, height: Incomplete | None = ..., width: Incomplete | None = ...
+        self, exec_id: str, height: Optional[int] = None, width: Optional[int] = None
     ) -> None: ...
     def exec_start(
         self,
-        exec_id,
-        detach: bool = ...,
-        tty: bool = ...,
-        stream: bool = ...,
-        socket: bool = ...,
-        demux: bool = ...,
-    ): ...
+        exec_id: str,
+        detach: bool = False,
+        tty: bool = False,
+        stream: bool = False,
+        socket: bool = False,
+        demux: bool = False,
+    ) -> CancellableStream: ...
