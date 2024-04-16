@@ -1,5 +1,3 @@
-from typing import TypedDict
-
 from .. import errors as errors
 from ..utils.utils import (
     convert_port_bindings as convert_port_bindings,

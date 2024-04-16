@@ -1,5 +1,3 @@
-from typing import TypedDict
-
 from .. import errors as errors, utils as utils
 from ..constants import DEFAULT_DATA_CHUNK_SIZE as DEFAULT_DATA_CHUNK_SIZE
 from ..types import (
@@ -10,14 +8,6 @@ from ..types import (
     NetworkingConfig as NetworkingConfig,
 )
 from _typeshed import Incomplete
-
-from ..types.base import Command, PathStr, MacAddress, Signal
-
-
-class CreateContainerReturnDict(TypedDict):
-    Id: str
-    Warnings: list[str]
-
 
 class ContainerApiMixin:
     def attach(
@@ -57,32 +47,32 @@ class ContainerApiMixin:
     ): ...
     def create_container(
         self,
-        image: str,
-        command: Command | None = ...,
-        hostname: str | None = ...,
-        user: str | int | None = ...,
+        image,
+        command: Incomplete | None = ...,
+        hostname: Incomplete | None = ...,
+        user: Incomplete | None = ...,
         detach: bool = ...,
         stdin_open: bool = ...,
         tty: bool = ...,
-        ports: list[int] | None = ...,
-        environment: list[str] | dict[str, str] | None = ...,
-        volumes: str | list[PathStr] | None = ...,
+        ports: Incomplete | None = ...,
+        environment: Incomplete | None = ...,
+        volumes: Incomplete | None = ...,
         network_disabled: bool = ...,
-        name: str | None = ...,
-        entrypoint: Command | None = ...,
-        working_dir: PathStr | None = ...,
-        domainname: str | None = ...,
-        host_config: dict | None = ...,
-        mac_address: MacAddress | None = ...,
-        labels: dict[str, str] | list[str] | None = ...,
-        stop_signal: Signal | None = ...,
-        networking_config: dict | None = ...,
-        healthcheck: dict | None = ...,
-        stop_timeout: int | None = ...,
-        runtime: str | None = ...,
+        name: Incomplete | None = ...,
+        entrypoint: Incomplete | None = ...,
+        working_dir: Incomplete | None = ...,
+        domainname: Incomplete | None = ...,
+        host_config: Incomplete | None = ...,
+        mac_address: Incomplete | None = ...,
+        labels: Incomplete | None = ...,
+        stop_signal: Incomplete | None = ...,
+        networking_config: Incomplete | None = ...,
+        healthcheck: Incomplete | None = ...,
+        stop_timeout: Incomplete | None = ...,
+        runtime: Incomplete | None = ...,
         use_config_proxy: bool = ...,
-        platform: str | None = ...,
-    ) -> CreateContainerReturnDict: ...
+        platform: Incomplete | None = ...,
+    ): ...
     def create_container_config(self, *args, **kwargs): ...
     def create_container_from_config(
         self, config, name: Incomplete | None = ..., platform: Incomplete | None = ...

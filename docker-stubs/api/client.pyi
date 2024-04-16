@@ -1,4 +1,6 @@
 import requests.exceptions
+from requests.adapters import BaseAdapter
+
 from .. import auth as auth
 from ..constants import (
     DEFAULT_MAX_POOL_SIZE as DEFAULT_MAX_POOL_SIZE,
@@ -20,7 +22,6 @@ from ..tls import TLSConfig as TLSConfig
 from ..transport import (
     NpipeHTTPAdapter as NpipeHTTPAdapter,
     SSHHTTPAdapter as SSHHTTPAdapter,
-    SSLHTTPAdapter as SSLHTTPAdapter,
     UnixHTTPAdapter as UnixHTTPAdapter,
 )
 from ..utils import (
@@ -65,23 +66,23 @@ class APIClient(
     SwarmApiMixin,
     VolumeApiMixin,
 ):
-    __attrs__: Incomplete
-    base_url: Incomplete
-    timeout: Incomplete
-    credstore_env: Incomplete
+    __attrs__: list[str]
+    base_url: str
+    timeout: int
+    credstore_env: dict
     def __init__(
         self,
-        base_url: Incomplete | None = ...,
-        version: Incomplete | None = ...,
-        timeout=...,
-        tls: bool = ...,
-        user_agent=...,
-        num_pools: Incomplete | None = ...,
-        credstore_env: Incomplete | None = ...,
+        base_url: str | None = ...,
+        version: str | None = ...,
+        timeout: int = ...,
+        tls: bool | TLSConfig = ...,
+        user_agent: str = ...,
+        num_pools: int | None = ...,
+        credstore_env: dict | None = ...,
         use_ssh_client: bool = ...,
-        max_pool_size=...,
+        max_pool_size: int = ...,
     ) -> None: ...
-    def get_adapter(self, url): ...
     @property
-    def api_version(self): ...
-    def reload_config(self, dockercfg_path: Incomplete | None = ...) -> None: ...
+    def api_version(self) -> str: ...
+    def get_adapter(self, url: str) -> BaseAdapter: ...
+    def reload_config(self, dockercfg_path: str | None = ...) -> None: ...

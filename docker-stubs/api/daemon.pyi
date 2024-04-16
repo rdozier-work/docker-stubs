@@ -1,24 +1,31 @@
+from datetime import datetime
+
+from docker.types import CancellableStream
+
 from .. import auth as auth, types as types, utils as utils
 from _typeshed import Incomplete
 
+from ..types.io import JsonDict
+
+
 class DaemonApiMixin:
-    def df(self): ...
+    def df(self) -> JsonDict: ...
     def events(
         self,
-        since: Incomplete | None = ...,
-        until: Incomplete | None = ...,
-        filters: Incomplete | None = ...,
-        decode: Incomplete | None = ...,
-    ): ...
-    def info(self): ...
+        since: int | datetime | None = ...,
+        until: int | datetime | None = ...,
+        filters: dict | None = ...,
+        decode: bool | None = ...,
+    ) -> CancellableStream: ...
+    def info(self) -> JsonDict: ...
     def login(
         self,
-        username,
-        password: Incomplete | None = ...,
-        email: Incomplete | None = ...,
-        registry: Incomplete | None = ...,
+        username: str,
+        password: str | None = ...,
+        email: str | None = ...,
+        registry: str | None = ...,
         reauth: bool = ...,
-        dockercfg_path: Incomplete | None = ...,
-    ): ...
-    def ping(self): ...
-    def version(self, api_version: bool = ...): ...
+        dockercfg_path: str | None = ...,
+    ) -> JsonDict: ...
+    def ping(self) -> bool: ...
+    def version(self, api_version: bool = ...) -> JsonDict: ...

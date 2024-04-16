@@ -2,6 +2,7 @@ from ..constants import IS_WINDOWS_PLATFORM as IS_WINDOWS_PLATFORM
 from .fnmatch import fnmatch as fnmatch
 from _typeshed import Incomplete
 
+def match_tag(tag: str) -> bool: ...
 def tar(
     path,
     exclude: Incomplete | None = ...,

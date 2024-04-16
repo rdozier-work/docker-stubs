@@ -1,6 +1,7 @@
 from .build import (
     create_archive as create_archive,
     exclude_paths as exclude_paths,
+    match_tag as match_tag,
     mkbuildcontext as mkbuildcontext,
     tar as tar,
 )
