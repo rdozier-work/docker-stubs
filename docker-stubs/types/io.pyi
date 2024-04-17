@@ -13,3 +13,7 @@ ResponseResult = Union[Json, bytes, AnyStr]
 
 
 class Socket(Protocol): ...
+
+
+class SupportsEncode(Protocol):
+    def encode(self, input: str) -> AnyStr: ...

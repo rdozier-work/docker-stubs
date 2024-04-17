@@ -9,14 +9,14 @@ from docker.context.config import (
 )
 
 class ContextAPI:
-    DEFAULT_CONTEXT: Incomplete
+    DEFAULT_CONTEXT: Context
     @classmethod
     def create_context(
         cls,
-        name,
+        name: str,
         orchestrator: Incomplete | None = ...,
         host: Incomplete | None = ...,
-        tls_cfg: Incomplete | None = ...,
+        tls_cfg: dict | None = ...,
         default_namespace: Incomplete | None = ...,
         skip_tls_verify: bool = ...,
     ): ...
