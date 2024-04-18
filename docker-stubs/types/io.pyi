@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from os import PathLike
 from typing import AnyStr
 from typing import NewType
@@ -10,6 +11,11 @@ JsonList = list[Json]
 JsonDict = dict[str, Json]
 PathType = Union[str, PathLike]
 ResponseResult = Union[Json, bytes, AnyStr]
+
+
+class Response(Protocol):
+    status_code: Incomplete
+    url: Incomplete
 
 
 class Socket(Protocol): ...
