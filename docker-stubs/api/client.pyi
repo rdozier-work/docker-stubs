@@ -69,7 +69,7 @@ class APIClient(
     __attrs__: list[str]
     base_url: str
     timeout: int
-    credstore_env: dict
+    credstore_env: dict[Incomplete, Incomplete]
     def __init__(
         self,
         base_url: str | None = ...,
@@ -78,7 +78,7 @@ class APIClient(
         tls: bool | TLSConfig = ...,
         user_agent: str = ...,
         num_pools: int | None = ...,
-        credstore_env: dict | None = ...,
+        credstore_env: dict[Incomplete, Incomplete] | None = ...,
         use_ssh_client: bool = ...,
         max_pool_size: int = ...,
     ) -> None: ...
