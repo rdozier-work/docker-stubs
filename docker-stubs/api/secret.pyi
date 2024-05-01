@@ -3,10 +3,9 @@ from docker.types import DriverConfig
 from .. import errors as errors, utils as utils
 from _typeshed import Incomplete
 
-from ..types.io import JsonDict
-from ..types.io import JsonList
+from ..types._io import JsonDict
+from ..types._io import JsonList
 from ..types.misc_types import TrueOnSuccess
-
 
 class SecretApiMixin:
     def create_secret(

@@ -1,12 +1,10 @@
 from datetime import datetime
 
 from docker.types import CancellableStream
-
-from .. import auth as auth, types as types, utils as utils
 from _typeshed import Incomplete
+from .. import auth as auth, types as types, utils as utils
 
-from ..types.io import JsonDict
-
+from ..types._io import JsonDict
 
 class DaemonApiMixin:
     def df(self) -> JsonDict: ...
@@ -14,7 +12,7 @@ class DaemonApiMixin:
         self,
         since: int | datetime | None = ...,
         until: int | datetime | None = ...,
-        filters: dict | None = ...,
+        filters: dict[Incomplete, Incomplete] | None = ...,
         decode: bool | None = ...,
     ) -> CancellableStream: ...
     def info(self) -> JsonDict: ...

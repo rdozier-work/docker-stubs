@@ -1,13 +1,10 @@
-from collections.abc import Generator
-from typing import AnyStr
+from typing import AnyStr, BinaryIO, Iterator
 from typing import TypedDict
 
 from .. import auth as auth, constants as constants, errors as errors, utils as utils
 from _typeshed import Incomplete
 
-from ..types.io import ResponseResult
-from ..types.io import PathType
-
+from ..types._io import PathType, ResponseResult
 
 class ContainerLimitsDict(TypedDict, total=False):
     memory: int
@@ -15,14 +12,13 @@ class ContainerLimitsDict(TypedDict, total=False):
     cpushares: int
     cpusetcpus: str
 
-
 class BuildApiMixin:
     def build(
         self,
         path: str | None = ...,
         tag: str | None = ...,
         quiet: bool = ...,
-        fileobj: Incomplete | None = ...,
+        fileobj: BinaryIO | None = ...,
         nocache: bool = ...,
         rm: bool = ...,
         timeout: int | None = ...,
@@ -31,26 +27,28 @@ class BuildApiMixin:
         pull: bool = ...,
         forcerm: bool = ...,
         dockerfile: str | None = ...,
-        container_limits: dict | None = ...,
+        container_limits: dict[Incomplete, Incomplete] | None = ...,
         decode: bool = ...,
-        buildargs: dict | None = ...,
+        buildargs: dict[Incomplete, Incomplete] | None = ...,
         gzip: bool = ...,
         shmsize: int | None = ...,
-        labels: dict | None = ...,
-        cache_from: list | None = ...,
+        labels: dict[Incomplete, Incomplete] | None = ...,
+        cache_from: list[Incomplete] | None = ...,
         target: str | None = ...,
         network_mode: str | None = ...,
         squash: bool | None = ...,
-        extra_hosts: dict | None = ...,
+        extra_hosts: dict[Incomplete, Incomplete] | None = ...,
         platform: str | None = ...,
         isolation: str | None = ...,
         use_config_proxy: bool = ...,
-    ) -> Generator[ResponseResult, None, None]: ...
+    ) -> Iterator[ResponseResult]: ...
     def prune_builds(
         self,
-        filters: dict | None = ...,
+        filters: dict[Incomplete, Incomplete] | None = ...,
         keep_storage: int | None = ...,
         all: bool | None = ...,
-    ): ...
+    ) -> dict[Incomplete, Incomplete]: ...
 
-def process_dockerfile(dockerfile: PathType, path: PathType) -> tuple[PathType | None, AnyStr | None]: ...
+def process_dockerfile(
+    dockerfile: PathType[str], path: PathType[str]
+) -> tuple[PathType[str] | None, AnyStr | None]: ...

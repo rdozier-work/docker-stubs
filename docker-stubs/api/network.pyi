@@ -1,19 +1,14 @@
-from typing import Literal
-from typing import TypedDict
-
 from docker.types import IPAMConfig
 
 from .. import utils as utils
 from ..errors import InvalidVersion as InvalidVersion
-from ..types.io import Json
-from ..types.io import JsonDict
+from ..types._io import Json, JsonDict
 from ..utils import (
     check_resource as check_resource,
     minimum_version as minimum_version,
     version_lt as version_lt,
 )
 from _typeshed import Incomplete
-
 
 class NetworkApiMixin:
     def networks(
@@ -26,7 +21,7 @@ class NetworkApiMixin:
         self,
         name: str,
         driver: str | None = ...,
-        options: dict | None = ...,
+        options: dict[Incomplete, Incomplete] | None = ...,
         ipam: IPAMConfig | None = ...,
         check_duplicate: bool | None = ...,
         internal: bool = ...,
@@ -36,7 +31,7 @@ class NetworkApiMixin:
         scope: str | None = ...,
         ingress: bool | None = ...,
     ) -> JsonDict: ...
-    def prune_networks(self, filters: FiltersDict | None = ...) -> JsonDict: ...
+    def prune_networks(self, filters: Incomplete | None = ...) -> JsonDict: ...
     def remove_network(self, net_id: str) -> None: ...
     def inspect_network(
         self, net_id: str, verbose: bool | None = ..., scope: str | None = ...
