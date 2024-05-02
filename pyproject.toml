@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "docker-stubs"
-version = "0.1.1"
+version = "0.1.1a0"
 description = "Stubs package for the Python Docker API."
 authors = ["Robbie Dozier <rdozier@mimsoftware.com>"]
 readme = "README.md"
