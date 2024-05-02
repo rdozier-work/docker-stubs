@@ -1,23 +1,21 @@
 from .. import errors as errors, utils as utils
 from ..types import CancellableStream as CancellableStream
-from _typeshed import Incomplete
 
-from ..types.io import JsonDict
-from ..types.io import Socket
-
+from ..types._io import JsonDict
+from ..types._io import Socket
 
 class ExecApiMixin:
     def exec_create(
         self,
         container: str,
-        cmd: str | list,
+        cmd: str | list[str] | tuple[str, ...],
         stdout: bool = ...,
         stderr: bool = ...,
         stdin: bool = ...,
         tty: bool = ...,
         privileged: bool = ...,
         user: str = ...,
-        environment: dict | list | None = ...,
+        environment: dict[str, str] | list[str] | tuple[str, ...] | None = ...,
         workdir: str | None = ...,
         detach_keys: str | None = ...,
     ) -> JsonDict: ...

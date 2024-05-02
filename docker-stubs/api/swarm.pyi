@@ -7,20 +7,22 @@ from ..constants import (
 )
 from _typeshed import Incomplete
 
-from ..types.io import JsonDict
+from ..types._io import JsonDict
 from ..types.misc_types import TrueOnSuccess
 
 log: Incomplete
 
 class SwarmApiMixin:
-    def create_swarm_spec(self, *args, **kwargs) -> SwarmSpec: ...
-    def get_unlock_key(self) -> dict: ...
+    def create_swarm_spec(
+        self, *args: Incomplete, **kwargs: Incomplete
+    ) -> SwarmSpec: ...
+    def get_unlock_key(self) -> dict[Incomplete, Incomplete]: ...
     def init_swarm(
         self,
         advertise_addr: str | None = ...,
         listen_addr: str = ...,
         force_new_cluster: bool = ...,
-        swarm_spec: dict | None = ...,
+        swarm_spec: dict[Incomplete, Incomplete] | None = ...,
         default_addr_pool: list[str] | None = ...,
         subnet_size: int | None = ...,
         data_path_addr: str | None = ...,
@@ -37,14 +39,21 @@ class SwarmApiMixin:
         data_path_addr: str | None = ...,
     ) -> TrueOnSuccess: ...
     def leave_swarm(self, force: bool = ...) -> TrueOnSuccess: ...
-    def nodes(self, filters: dict | None = ...) -> list[JsonDict]: ...
+    def nodes(
+        self, filters: dict[Incomplete, Incomplete] | None = ...
+    ) -> list[JsonDict]: ...
     def remove_node(self, node_id: str, force: bool = ...) -> TrueOnSuccess: ...
     def unlock_swarm(self, key: str) -> TrueOnSuccess: ...
-    def update_node(self, node_id: str, version: int, node_spec: dict | None = ...) -> TrueOnSuccess: ...
+    def update_node(
+        self,
+        node_id: str,
+        version: int,
+        node_spec: dict[Incomplete, Incomplete] | None = ...,
+    ) -> TrueOnSuccess: ...
     def update_swarm(
         self,
         version: int,
-        swarm_spec: dict | None = ...,
+        swarm_spec: dict[Incomplete, Incomplete] | None = ...,
         rotate_worker_token: bool = ...,
         rotate_manager_token: bool = ...,
         rotate_manager_unlock_key: bool = ...,

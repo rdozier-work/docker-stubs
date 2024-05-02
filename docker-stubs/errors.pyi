@@ -1,8 +1,7 @@
 import requests
 from _typeshed import Incomplete
 
-from docker.types.io import Response
-
+from docker.types._io import Response
 
 class DockerException(Exception): ...
 
